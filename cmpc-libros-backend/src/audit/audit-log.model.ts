@@ -21,9 +21,11 @@ export class AuditLog extends Model<AuditLog> {
   @Column({ type: DataType.UUID, allowNull: true })
   userId?: string;
 
+  @Default('Unknown')
   @Column({ type: DataType.STRING, allowNull: false })
   entity!: string;
 
+  @Default('READ')
   @Column({ type: DataType.STRING, allowNull: false })
   action!: string;
 
