@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { BooksModule } from './books/books.module';
 import { AuditModule } from './audit/audit.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -39,5 +41,7 @@ import { AuditModule } from './audit/audit.module';
     BooksModule,
     AuditModule,
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

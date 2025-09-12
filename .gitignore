@@ -1,59 +1,158 @@
-# compiled output
-/dist
-/node_modules
-/build
-/src/.DS_Store
+# =============================================================================
+# ROOT GITIGNORE - CMPC Libros Fullstack
+# =============================================================================
+
+# =============================================================================
+# BACKEND (NestJS + Node.js)
+# =============================================================================
+
+# Backend compiled output
+cmpc-libros-backend/dist/
+cmpc-libros-backend/build/
+cmpc-libros-backend/node_modules/
+
+# Backend environment files
+cmpc-libros-backend/.env
+cmpc-libros-backend/.env.local
+cmpc-libros-backend/.env.development.local
+cmpc-libros-backend/.env.test.local
+cmpc-libros-backend/.env.production.local
+
+# Backend test coverage
+cmpc-libros-backend/coverage/
+cmpc-libros-backend/.nyc_output/
+
+# Backend logs
+cmpc-libros-backend/logs/
+cmpc-libros-backend/*.log
+
+# Backend temp files
+cmpc-libros-backend/.temp/
+cmpc-libros-backend/.tmp/
+
+# =============================================================================
+# FRONTEND (React + Vite)
+# =============================================================================
+
+# Frontend compiled output
+cmpc-libros-frontend/dist/
+cmpc-libros-frontend/build/
+cmpc-libros-frontend/node_modules/
+
+# Frontend environment files
+cmpc-libros-frontend/.env
+cmpc-libros-frontend/.env.local
+cmpc-libros-frontend/.env.development.local
+cmpc-libros-frontend/.env.test.local
+cmpc-libros-frontend/.env.production.local
+
+# Frontend test coverage
+cmpc-libros-frontend/coverage/
+cmpc-libros-frontend/.nyc_output/
+
+# Frontend logs
+cmpc-libros-frontend/logs/
+cmpc-libros-frontend/*.log
+
+# Frontend temp files
+cmpc-libros-frontend/.temp/
+cmpc-libros-frontend/.tmp/
+
+# Vite specific
+cmpc-libros-frontend/.vite/
+
+# =============================================================================
+# DOCKER & DEPLOYMENT
+# =============================================================================
+
+# Docker volumes
+docker-data/
+postgres-data/
+
+# Docker Compose overrides
+docker-compose.override.yml
+docker-compose.*.yml
+!docker-compose.yml
+
+# =============================================================================
+# GLOBAL PATTERNS
+# =============================================================================
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 __MACOSX/
 
-# Logs
-logs
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs (global)
 *.log
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-.env
-
-# OS
-.DS_Store
-
-# Tests
-/coverage
-/.nyc_output
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
-# temp directory
-.temp
-.tmp
 
 # Runtime data
-pids
+pids/
 *.pid
 *.seed
 *.pid.lock
 
-# Diagnostic reports (https://nodejs.org/api/report.html)
+# Diagnostic reports
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Dependency directories (fallback)
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
