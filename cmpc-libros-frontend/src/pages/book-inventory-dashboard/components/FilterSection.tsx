@@ -8,6 +8,10 @@ const FilterSection = ({ filters, onChange }: any) => {
     onChange({ [name]: value });
   };
 
+  const handleSelectChange = (value: string) => {
+    onChange({ available: value });
+  };
+
   return (
     <div className="bg-card border border-border rounded-lg p-6">
       <h3 className="text-lg font-medium text-foreground mb-4">Filtros de Búsqueda</h3>
@@ -53,7 +57,7 @@ const FilterSection = ({ filters, onChange }: any) => {
           label="Disponibilidad"
           name="available"
           value={filters?.available || ''}
-          onChange={handleInputChange}
+          onChange={handleSelectChange}
           options={[
             { value: '', label: 'Todos' },
             { value: 'true', label: 'Disponible' },

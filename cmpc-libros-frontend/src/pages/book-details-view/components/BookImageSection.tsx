@@ -7,7 +7,7 @@ const BookImageSection = ({ book }: any) => {
       <div className="aspect-[3/4] bg-muted rounded-lg overflow-hidden mb-4">
         {book?.imageUrl ? (
           <img
-            src={book?.imageUrl}
+            src={book.imageUrl.startsWith('http') ? book.imageUrl : `http://localhost:3000${book.imageUrl}`}
             alt={book?.title}
             className="w-full h-full object-cover"
             onError={(e: any) => {
