@@ -12,6 +12,7 @@ import { diskStorage } from 'multer';
 import { extname, join } from 'path';
 import { existsSync, mkdirSync } from 'fs';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { Express } from 'express';
 
 const UPLOAD_PATH = join(process.cwd(), 'uploads', 'books');
 
@@ -78,6 +79,7 @@ export class UploadController {
       throw new BadRequestException('No se ha proporcionado ningún archivo');
     }
 
+    // Generate relative URL for the uploaded image (backend will serve static files)
     const imageUrl = `/uploads/books/${file.filename}`;
 
     return {
