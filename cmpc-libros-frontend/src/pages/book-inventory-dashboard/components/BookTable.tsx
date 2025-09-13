@@ -175,7 +175,7 @@ const BookTable: React.FC<BookTableProps> = ({
                   <div className="flex items-center">
                     {book.imageUrl && (
                       <img
-                        src={book.imageUrl}
+                        src={book.imageUrl.startsWith('http') ? book.imageUrl : `http://localhost:3000${book.imageUrl}`}
                         alt={book.title}
                         className="h-10 w-8 object-cover rounded mr-3"
                         onError={(e) => {

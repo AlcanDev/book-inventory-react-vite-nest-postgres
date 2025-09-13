@@ -1,34 +1,42 @@
 # CMPC-libros – Sistema de Gestión de Libros Fullstack
 
+![web capture](./docs/web.png)
+_Captura principal de la aplicación mostrando la interfaz de gestión de libros_
+
 ## 🚀 Puesta en marcha rápida
 
 1. **Configurar variables de entorno** (automático con valores por defecto):
+
    ```bash
    # El archivo .env del backend se crea automáticamente con valores seguros
    # No requiere configuración manual
    ```
 
 2. **Levantar todo el stack con un solo comando**:
+
    ```bash
    docker compose up --build
    ```
 
 3. **Acceder a los servicios**:
+
    - 🌐 **Frontend**: http://localhost:8080
    - 📚 **Backend/API**: http://localhost:3000/api
    - 📖 **Swagger Docs**: http://localhost:3000/api/docs
    - ❤️ **Health Check**: http://localhost:3000/api/health
 
 4. **Credenciales de prueba**:
+
    - **Email**: `admin@cmpc.local`
    - **Password**: `admin1234`
 
 5. **Para apagar**:
+
    ```bash
    docker compose down
    ```
 
-6. **Para limpiar volúmenes** (destructivo):
+6. **Para limpiar volúmenes** (destructivo - elimina imágenes y datos):
    ```bash
    docker compose down -v
    ```
@@ -36,12 +44,14 @@
 ## ✨ Características implementadas
 
 ### 🔐 **Autenticación y Seguridad**
+
 - ✅ JWT con protección de rutas
 - ✅ Middleware de autenticación
 - ✅ CORS configurado
 - ✅ Validación de datos con pipes
 
 ### 📚 **Gestión de Libros**
+
 - ✅ CRUD completo (Create, Read, Update, Delete)
 - ✅ Soft-delete con auditoría
 - ✅ Filtros avanzados (título, autor, editorial, género, disponibilidad)
@@ -49,16 +59,20 @@
 - ✅ Paginación server-side
 - ✅ Ordenamiento multi-campo
 - ✅ Exportación CSV manteniendo filtros
+- ✅ **Subida de imágenes con Multer** (almacenamiento local persistente)
+- ✅ **Visualización de imágenes** en tabla, detalles y formularios
 
 ### 🎨 **Frontend Moderno**
+
 - ✅ React 18 + TypeScript + Vite
 - ✅ UI responsive y moderna
-- ✅ Tipado estricto (sin `any`)
+- ✅ Tipado estricto
 - ✅ Contexto de autenticación
 - ✅ Manejo de estados con hooks
 - ✅ Formularios con validación
 
 ### 🏗️ **Backend Robusto**
+
 - ✅ NestJS + TypeScript
 - ✅ PostgreSQL + Sequelize ORM
 - ✅ Interceptors de logging y transformación
@@ -67,18 +81,21 @@
 - ✅ Health checks
 
 ### 🧪 **Testing y Calidad**
+
 - ✅ **Cobertura de tests: 91.61%** (objetivo ≥80%)
 - ✅ Tests unitarios con Jest
 - ✅ Tests de integración
 - ✅ Linting y formateo automático
 
 ### 🐳 **DevOps y Deployment**
+
 - ✅ Docker Compose orquestación
 - ✅ Multi-stage builds optimizados
 - ✅ Health checks en todos los servicios
 - ✅ Variables de entorno configuradas
 - ✅ Nginx para servir frontend
 - ✅ Single command deployment
+- ✅ **Volúmenes persistentes** para imágenes y base de datos
 
 ## 🛠️ **Stack Tecnológico**
 
@@ -100,7 +117,7 @@ Digitalizar procesos de inventario para una tienda de libros (CMPC-libros), con:
 - Filtros avanzados, orden multi-campo, paginación server-side, búsqueda con debounce
 - Exportación CSV
 - Soft-delete, logging/auditoría
-- Tests (≥ 80% cobertura, pendiente de completar)
+- Tests (≥ 80% cobertura)
 - Despliegue local con Docker
 
 ---
@@ -197,10 +214,13 @@ docker compose down -v
 ### Endpoints destacados (resumen)
 
 - `POST /api/auth/login` – login JWT
+- `GET /api/auth/me` – perfil usuario autenticado
 - `GET /api/books` – listado con filtros/orden/paginación (query params)
+- `GET /api/books/:id` – detalle de libro específico
 - `POST /api/books` – alta
 - `PATCH /api/books/:id` – edición
 - `DELETE /api/books/:id` – soft delete
+- `POST /api/upload/book-image` – subida de imagen (multipart/form-data)
 - `GET /api/books/export` – CSV con filtros
 - `GET /api/health` – health check
 
@@ -256,10 +276,28 @@ docker compose down -v
 
 ---
 
-## Pendientes conocidos del ZIP
+## 🎯 **Funcionalidades Completadas**
 
-- Varias piezas de UI y tests venían truncados con `...` y deben corregirse.
-- Si se requiere **upload binario** de imágenes, agregar endpoint y almacenamiento (S3/local).
+### ✅ **Sistema de Imágenes**
+
+- **Subida**: Endpoint `/api/upload/book-image` con Multer
+- **Almacenamiento**: Local con volumen Docker persistente
+- **Validación**: Tipos (JPEG, PNG, WebP), tamaño máximo 5MB
+- **Visualización**: Miniaturas en tabla, imagen completa en detalles y edición
+- **URLs**: Servidas estáticamente desde `/uploads/books/`
+
+### ✅ **Filtros Avanzados**
+
+- **Búsqueda**: Texto libre en título, autor, editorial
+- **Filtros específicos**: Género, editorial, autor, disponibilidad
+- **Funcionalidad**: Todos los filtros funcionan correctamente
+- **UI**: Select de disponibilidad con opciones "Todos", "Disponible", "No disponible"
+
+### ✅ **Persistencia de Datos**
+
+- **Base de datos**: Volumen `pgdata` para PostgreSQL
+- **Imágenes**: Volumen `uploads` para archivos subidos
+- **Beneficio**: Los datos persisten entre reinicios de contenedores
 
 ---
 
@@ -272,9 +310,9 @@ docker compose down -v
 docker compose up --build
 ```
 
-   - Frontend: http://localhost:8080
-   - Backend/API: http://localhost:3000/api
-   - Swagger Docs: http://localhost:3000/api/docs
-   - Health: http://localhost:3000/api/health
+- Frontend: http://localhost:8080
+- Backend/API: http://localhost:3000/api
+- Swagger Docs: http://localhost:3000/api/docs
+- Health: http://localhost:3000/api/health
 
 **Usuario seed (si seeder activo):** `admin@cmpc.local` / `admin1234`

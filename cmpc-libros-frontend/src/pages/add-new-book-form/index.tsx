@@ -62,7 +62,13 @@ const AddNewBookForm = () => {
           available: !!(book?.available), // 👈 asegura booleano
           imageUrl: book?.imageUrl || ''
         });
-        if (book?.imageUrl) setImagePreview(book?.imageUrl);
+        if (book?.imageUrl) {
+          // Handle both relative and absolute URLs
+          const imageUrl = book.imageUrl.startsWith('http') 
+            ? book.imageUrl 
+            : `http://localhost:3000${book.imageUrl}`;
+          setImagePreview(imageUrl);
+        }
       }
     } catch (err) {
       console.error('Error loading book:', err);
@@ -80,7 +86,19 @@ const AddNewBookForm = () => {
   const uploadImage = async (file: File): Promise<string> => {
     try {
       const response = await uploadService.uploadBookImage(file);
-      return response.data.imageUrl;
+      console.log('Full upload response:', JSON.stringify(response, null, 2));
+      console.log('response.data:', response.data);
+      
+      // Try different access patterns based on actual structure
+      let imageUrl = '';
+      if ((response.data as any)?.data?.imageUrl) {
+        imageUrl = (response.data as any).data.imageUrl;
+      } else if (response.data?.imageUrl) {
+        imageUrl = response.data.imageUrl;
+      }
+      
+      console.log('Extracted imageUrl:', imageUrl);
+      return imageUrl;
     } catch (error) {
       console.error('Error uploading image:', error);
       throw new Error('Error al subir la imagen');
@@ -94,16 +112,23 @@ const AddNewBookForm = () => {
 
       let imageUrl = data?.imageUrl;
 
+      // Upload image first if a new file is selected
       if (imageFile) {
-        imageUrl = await uploadImage(imageFile);
+        try {
+          imageUrl = await uploadImage(imageFile);
+        } catch (uploadError) {
+          throw new Error('Error al subir la imagen. Por favor, inténtelo de nuevo.');
+        }
       }
 
       const bookData = {
         ...data,
         price: String(data?.price) || '0', // "xxxxx.00"
         available: !!data?.available,      // 👈 asegura booleano hacia el backend
-        imageUrl
+        imageUrl: imageUrl || null
       };
+
+      console.log('Book data being sent:', bookData);
 
       let response;
       if (isEdit) {
@@ -203,13 +228,6 @@ const AddNewBookForm = () => {
                     type="text"
                     {...register('genre', { required: 'El género es requerido' })}
                     error={errors?.genre?.message}
-                  />
-                  <Input
-                    label="Precio"
-                    type="number"
-                    step="0.01"
-                    {...register('price', { required: 'El precio es requerido' })}
-                    error={errors?.price?.message}
                   />
                 </div>
               </div>
